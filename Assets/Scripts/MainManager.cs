@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class MainManager : MonoBehaviour
 {
@@ -18,10 +20,31 @@ public class MainManager : MonoBehaviour
     
     private bool m_GameOver = false;
 
+    public TMP_Text PlayerNameText;
+    public TMP_Text BestScoreText;
+
     
     // Start is called before the first frame update
     void Start()
     {
+        
+
+    if (UIManager.Instance != null)
+    {
+        PlayerNameText.text = "Player: " + UIManager.Instance.PlayerName;
+
+        var data = UIManager.Instance.LoadHighScore();
+        if (data != null)
+        {
+            BestScoreText.text = "Best Score: " + data.BestScore + " by " + data.BestPlayer;
+        }
+        else
+        {
+            BestScoreText.text = "No Best Score Yet!!";
+        }
+    }
+
+        
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -72,5 +95,17 @@ public class MainManager : MonoBehaviour
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+
+        var data = UIManager.Instance.LoadHighScore();
+        if (data == null || m_Points > data.BestScore)
+        {
+            UIManager.Instance.SaveHighScore(UIManager.Instance.PlayerName, m_Points);
+            BestScoreText.text = "Best Score: " + m_Points + " by " + UIManager.Instance.PlayerName;
+        }
+    }
+
+    public void BackMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }
