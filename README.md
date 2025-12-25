@@ -46,10 +46,10 @@ Assets/ ├── Scenes/ │    ├── menu.unity │    └── main.unit
 ## 📸 Screenshots
 (Add screenshots of your menu, gameplay, and high score display here)
 ### Menu Screen
-![Menu Screenshot]("SS\Gameplay.png")
+![Menu Screenshot](SS\Gameplay.png)
 
 ### Gameplay
-![Gameplay Screenshot]("SS\Menu.png")
+![Gameplay Screenshot](SS\Menu.png)
 
 ---
 
